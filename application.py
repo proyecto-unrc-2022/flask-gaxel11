@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, Response
 
 app = Flask(__name__)
 
-USERS = {}
+USERS = {"Ping" : 'Pong!'}
 
 @app.route('/')
 def index():
@@ -15,7 +15,6 @@ def access_users(username):
         if user_details:
             return jsonify(user_details)
         else:
-            return Response(status=404)
-
+            return 'Index Page'
 if __name__ == "__main__":
     app.run()

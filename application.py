@@ -29,6 +29,8 @@ def show_all_user_and_add():
             return jsonify(message = "Created user")
         else:
             return jsonify(message = "User already exists") 
+    elif request.method == 'GET':
+        return jsonify(USERS)
         
 if __name__ == "__main__":
     app.run()

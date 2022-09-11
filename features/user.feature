@@ -9,16 +9,16 @@ Feature: Handle storing, retrieving and deleting customer details # test/feature
       | Jason Borne |
 
   Scenario: Agregar nuevo usuario
-      Given un usuario 'test' con nombre 'Esto Esuntest' que no existe en USERS
+      Given un usuario 'test' que no existe en la lista de usuarios existentes
       And se lo recibe a traves de un POST
       When yo agrego ese usuario nuevo
-      Then deberia responder con un '200'
+      Then deberia de obtener un '200'
       And mostrar el mensaje: Created user
 
   Scenario: Mostrar todos los usuarios
       Given un usuario ingresa al sistema
       And recibo una solicitud GET
-      Then deberia responder con un '200'
+      Then deberia de obtener un '200'
       And mostrar todos los usuarios
       | name        |
       | Jason Borne |

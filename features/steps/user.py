@@ -24,7 +24,7 @@ def step_impl(context):
 
 
 #Scenario: Agregar nuevo usuario
-@given('un usuario \'test\' con nombre \'Esto Esuntest\' que no existe en USERS')
+@given('un usuario \'test\' que no existe en la lista de usuarios')
 def step_given(self) :
    assert (not USERS.get('test'))  
 
@@ -39,7 +39,7 @@ def step_when(self) :
     USERS.update({'test': {'name': 'Esto Esuntest'}})
     assert (USERS.get('test'))  
     
-@then('deberia responder con un \'200\'')
+@then('deberia de obtener un \'200\'')
 def step_then(context) :
     assert context.page.status_code is 200
   

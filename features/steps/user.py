@@ -23,7 +23,6 @@ def step_impl(context):
     assert "Jason Bourne" in context.page.text
 
 #Scenario: Agregar nuevo usuario
-
 @given('un usuario que no existe en la lista de usuarios existentes')
 def step_given(context) :
     assert (not USERS.get('james'))  
@@ -77,8 +76,6 @@ def step_when(context) :
 @then('mostrar los detalles de ese usuario modificado')
 def step_then(context) :
     assert "Java Script" in context.page.text
-
-
 
 #Scenario: Eliminar un usuario
 @given('se ingresa al sistema con un usuario existente')

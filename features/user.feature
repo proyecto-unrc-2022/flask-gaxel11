@@ -9,7 +9,7 @@ Feature: Handle storing, retrieving and deleting customer details # test/feature
       | Jason Borne |
 
   Scenario: Agregar nuevo usuario
-      Given un usuario 'test' que no existe en la lista de usuarios existentes
+      Given un usuario que no existe en la lista de usuarios existentes
       And se lo recibe a traves de un POST
       When yo agrego ese usuario nuevo
       Then deberia de obtener un '200'
@@ -23,4 +23,15 @@ Feature: Handle storing, retrieving and deleting customer details # test/feature
       | name        |
       | Jason Borne |
       | Esto Esuntest |
-          
+
+  Scenario: Modificar un usuario
+      Given ingresa con un usuario existente
+      When modifico ese usuario
+      Then deberia de obtener un '200'
+      And mostrar los detalles de ese usuario modificado
+  
+  Scenario: Eliminar un usuario
+      Given se ingresa al sistema con un usuario existente
+      When se elimina el usuario 
+      Then deberia de obtener un '200'
+      And mostrar el mensaje: User Deleted

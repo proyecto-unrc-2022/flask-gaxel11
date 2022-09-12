@@ -22,11 +22,11 @@ def step_impl(context):
     # assert context.table[0].cells[0] in context.page.text
     assert "Jason Bourne" in context.page.text
 
-
 #Scenario: Agregar nuevo usuario
-@given('un usuario \'test\' que no existe en la lista de usuarios')
-def step_given(self) :
-   assert (not USERS.get('test'))  
+
+@given('un usuario que no existe en la lista de usuarios existentes')
+def step_given(context) :
+    assert (not USERS.get('james'))  
 
 @given('se lo recibe a traves de un POST')
 def step_given(context) :
@@ -35,7 +35,7 @@ def step_given(context) :
     assert context.page
     
 @when('yo agrego ese usuario nuevo')
-def step_when(self) :
+def step_when(context) :
     USERS.update({'test': {'name': 'Esto Esuntest'}})
     assert (USERS.get('test'))  
     
@@ -51,7 +51,7 @@ def step_then(context) :
 
 #Scenario: Mostrar todos los usuarios
 @given('un usuario ingresa al sistema')
-def step_given(self) :
+def step_given(context) :
     USERS.update({'jasonb': {'name': 'Jason Bourne'}})
     USERS.update({'test': {'name': 'Esto Esuntest'}})
 
@@ -62,7 +62,36 @@ def step_given(context) :
     
 @then('mostrar todos los usuarios')
 def step_then(context) :
-    print(USERS)
-    print(context.page.text)
     assert USERS == json.loads(context.page.text)
+
+#Scenario: Modificar un usuario
+@given('ingresa con un usuario existente')
+def step_given(context) :
+    assert (USERS.get('jasonb')) 
+
+@when('modifico ese usuario')
+def step_when(context) :
+    context.headers = {'Content-Type': 'application/json'}
+    context.page = context.client.put('/users/jasonb', data=json.dumps({"java": "Java Script"}), headers=context.headers)
+        
+@then('mostrar los detalles de ese usuario modificado')
+def step_then(context) :
+    assert "Java Script" in context.page.text
+
+
+
+#Scenario: Eliminar un usuario
+@given('se ingresa al sistema con un usuario existente')
+def step_given(context) :
+    assert (USERS.get('test'))  
+
+@when('se elimina el usuario')
+def step_when(context) :
+    context.headers = {'Content-Type': 'application/json'}
+    context.page = context.client.delete('/users/{}'.format('java'), headers=context.headers)
+    
+@then('mostrar el mensaje: User Deleted')
+def step_then(context) :
+    assert "User Deleted" in context.page.text
+
 
